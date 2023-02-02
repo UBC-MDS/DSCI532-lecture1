@@ -1,0 +1,311 @@
+---
+title: "Introduction"
+author: "Data Visualization II"
+institute: "DSCI 532 - MDS 2022/23"
+format:
+  revealjs:
+    logo: img/mdslogo.png
+    incremental: true  # bullets one by one 
+    smaller: true
+    scrollable: true
+    theme: custom.scss
+    slide-number: true
+    show-slide-number: print
+    chalkboard: true
+    multiplex: true
+---
+
+## DSCI 532 Overview    
+
+![](img/532.png)
+---
+
+## Lecture 1 
+  
+
+1. What is a dashboard?  
+
+  
+2. Which are the main components of a Shiny App?  
+
+  
+3. What is reactivity and how to implement it?
+
+
+---
+  
+## 🙌 **Today's goal** - Create and Deploy a basic Shiny App.
+
+- *Running a dashboard vs running code*  
+- *DEMO: Building the structure of your first Shiny app*    
+- *DEMO: Creating a reactive plot with Shiny and deploying it*  
+
+---
+
+## Material
+  
+    
+      
+Chapter 1 - [Your first Shiny app](https://mastering-shiny.org/basic-app.html)  
+Mastering Shiny
+
+---
+
+# What is a dashboard? {background-color="#FED9B7"}
+
+---
+
+## Which one is a dashboard?
+
+::: {#fig-elephants layout-ncol=2 fig-align='center'}
+
+![](img/dashboard1.png){#fig-surus}
+
+![](img/dashboard2.png){#fig-hanno}
+
+Which one is a Dashboard?
+:::
+
+:::footer
+[Dahsboard 1](https://experience.arcgis.com/experience/a6f23959a8b14bfa989e3cda29297ded) - [Dahsboard 2](https://experience.arcgis.com/experience/a6f23959a8b14bfa989e3cda29297ded)
+:::
+
+---
+
+## Answer
+
+Dashboards use to have widgets, that are similar to web apps. But as different to them, they are specefically designed to display and monitor data.
+
+---
+
+## What is a Dashboard?
+
+> A **data dashboard** can be defined as an information management tool that visually tracks, analyzes, and displays key performance indicators, metrics, as well as key data points, allowing you to monitor the current state of your business, department, team, or specific process.
+
+
+::: footer
+[One source: Databox](https://databox.com/what-is-a-dashboard#what)]
+:::
+
+---
+
+## Why will we learn Shiny and Dash and not Power BI / Tableau?
+
+
+- **[R]** Shiny  
+- **[Python]** Dash
+
+::: footer
+New! [Shiny for python](https://shiny.rstudio.com/py/)
+:::
+
+---
+
+## How to select the best available technology?
+- short-term or long-term solution?
+- cost / financial aspect
+- data arquitecture - Is compatible with other technology that I am using?
+
+::: footer
+Business Dashboards
+:::
+
+---
+
+## Why this software / technology and not anoother one?
+- Ease of use
+- Software maturity
+- Features and flexibility
+- Hardware requirements
+
+::: footer
+Business Dashboards
+:::
+
+---
+
+## Running a dashboard
+
+- Running a dashboard is different from running code!
+
+---
+
+
+# DEMO: Running a dashboard vs running code {background-color="#FED9B7"}
+
+
+---
+
+# Which are the main components of a Shiny App?
+
+- User interface (frontend)
+- Server (backend)
+
+---
+
+## `app.R`
+
+```r
+library(shiny)
+ui <- fluidPage(
+  "Hello, world!"
+) 
+server <- function(input, output, session) {
+}
+shinyApp(ui, server)
+
+```
+
+---
+
+## Shiny App cheat-sheet
+
+![](img/shiny.png)
+
+:::footer
+[Shiny cheatsheet](https://shiny.rstudio.com/images/shiny-cheatsheet.pdf)
+:::
+
+---
+
+# DEMO: Building the structure of your first Shiny app {background-color="#FED9B7"}
+
+---
+
+# Break
+
+---
+
+## Interactivity 
+In computer science, interactive refers to software which accepts and responds to input from people—for example, data or commands.
+
+
+```{r echo=FALSE, message=FALSE, warning=FALSE, out.height=300, out.width=400}
+library(palmerpenguins)
+library(plotly)
+ggpenguins <- qplot(bill_length_mm , body_mass_g, 
+data = palmerpenguins::penguins, color = species)
+ggplotly(ggpenguins)
+```
+
+
+Source: Wikipedia
+
+---
+
+# What is reactivity and how to implement it? {background-color="#FED9B7"}
+
+
+
+
+
+
+---
+
+## Reactivity
+> _..."users change input controls (dragging sliders, typing in textboxes, checking checkboxes, …) which causes logic to run **on the server** (reading CSVs, subsetting data, fitting models, …) ultimately resulting in outputs updating (plots redrawing, tables updating, …)."_
+
+```{r,echo = FALSE, out.width=450, fig.align='center'}
+knitr::include_graphics("img/reactivity-4.png")
+```
+
+::: footer
+Source: [Mastering Shiny](https://mastering-shiny.org/reactive-motivation.html#motivation)]
+:::
+
+---
+
+## Interactivy
+
+* It is **not required connection to a server**
+
+* It is not needed **a widget** (for example, a slider)
+
+* Limited (what happen if we want to change the variable assigned to the the x-axis?)
+
+* This kind of interactivity is provided by the plotting library (for example, `Altair`)
+
+---
+
+## Reactivity
+
+
+* We need to add **widgets** to allow the user interact with the app and send a message to the server
+
+* We have to 🔌 **connect** the user interface to the server.
+
+* For that, we need to use a specialized dashboard library (for example, `Shiny` or Dash`)
+
+
+---
+
+# Reactivity
+
+"users change **input controls** (dragging sliders, typing in textboxes, checking checkboxes, …) which causes logic to run **on the server** (reading CSVs, subsetting data, fitting models, …)" 
+
+```{r,echo = FALSE, fig.align='center'}
+knitr::include_graphics("img/reactivity-1.png")
+```
+
+---
+
+
+..."ultimately resulting in **outputs updating** (plots redrawing, tables updating, …)."
+
+```{r,echo = FALSE, fig.align='center'}
+knitr::include_graphics("img/reactivity-2.png")
+```
+
+
+::: footer
+Source: [Mastering Shiny](https://mastering-shiny.org/)
+:::
+
+
+
+---
+
+# DEMO: Creating a reactive plot with Shiny {background-color="#FED9B7"}
+
+
+---
+
+## The app has a 🐛. Can you help me to fix it?
+
+![](img/exercise1.png)
+
+---
+
+
+
+## Learning objectives {background-color="#FED9B7"}
+
+
+1. Define what is a dashboard.
+
+2. Differentiate reactivity and interactivity.
+
+3. Identify the **server** and the **user interface** as the core elements that compose a dashboard.
+
+4. Implement the **reactivity** connecting the server and the user interface using specific functions.
+
+5. Create and run a basic Shiny R app.
+
+
+---
+
+# Questions?
+
+
+---
+
+
+## Activity
+
+Read this blogpost and comment with your teammates if there is something you can improve from yours.
+https://www.geckoboard.com/best-practice/dashboard-design/
+
+
+
+This is other interesting [post](https://www.geckoboard.com/blog/are-dashboards-really-dead/)
+
