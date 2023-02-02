@@ -1,7 +1,6 @@
 ---
 title: "Introduction"
-author: "Data Visualization II"
-institute: "DSCI 532 - MDS 2022/23"
+institute: "Data Visualization II - DSCI 532 - MDS 2022/23"
 format:
   revealjs:
     logo: img/mdslogo.png
@@ -23,35 +22,51 @@ format:
 ## Lecture 1 
   
 
-1. What is a dashboard?  
+1. What is a **data dashboard**?  
 
   
-2. Which are the main components of a Shiny App?  
+2. Which are the main **components of a Shiny App**?  
 
   
-3. What is reactivity and how to implement it?
+3. What is **reactivity** and how to implement it?
 
 
 ---
   
-## 🙌 **Today's goal** - Create and Deploy a basic Shiny App.
+## 🙌 **Today's goal**
+### Create and Deploy a basic Shiny App.
 
-- *Running a dashboard vs running code*  
-- *DEMO: Building the structure of your first Shiny app*    
-- *DEMO: Creating a reactive plot with Shiny and deploying it*  
+DEMOS:
+- Running a dashboard vs running code  
+- Building the structure of your first Shiny app    
+- Creating a reactive plot with Shiny and deploying it  
+
+---
+
+## Lecture 1 Overview
+
+1. What is a **data dashboard**?  
+DEMO - Running a dashboard vs running code  
+  
+2. Which are the main **components of a Shiny App**?  
+DEMO - Building the structure of your first Shiny app   
+  
+3. What is **reactivity** and how to implement it?
+DEMO - Creating a reactive plot with Shiny and deploying it  
 
 ---
 
 ## Material
   
-    
+
       
-Chapter 1 - [Your first Shiny app](https://mastering-shiny.org/basic-app.html)  
-Mastering Shiny
+- 📚 Chapter 1 - [Your first Shiny app](https://mastering-shiny.org/basic-app.html) -  
+Mastering Shiny 
 
 ---
 
-# What is a dashboard? {background-color="#FED9B7"}
+# 1. What is a **data dashboard**? {background-color="#FED9B7"}
+
 
 ---
 
@@ -74,13 +89,15 @@ Which one is a Dashboard?
 
 ## Answer
 
-Dashboards use to have widgets, that are similar to web apps. But as different to them, they are specefically designed to display and monitor data.
+Option (a) is correct
+- Dashboards use to have widgets that allow the user interact with the interface, what made them similar to web apps. 
+- Dashboards are specifically designed to display and monitor data.
 
 ---
 
-## What is a Dashboard?
+## What is a data dashboard?
 
-> A **data dashboard** can be defined as an information management tool that visually tracks, analyzes, and displays key performance indicators, metrics, as well as key data points, allowing you to monitor the current state of your business, department, team, or specific process.
+> An **information management tool** that visually tracks, analyzes, and displays key performance indicators, metrics, as well as key data points, allowing you to monitor the current state of your business, department, team, or specific process.
 
 
 ::: footer
@@ -89,15 +106,33 @@ Dashboards use to have widgets, that are similar to web apps. But as different t
 
 ---
 
-## Why will we learn Shiny and Dash and not Power BI / Tableau?
+## Packages / technologies used to create Dashboads
 
 
-- **[R]** Shiny  
-- **[Python]** Dash
+![](img/tech.png)
+---
+
+## Tableau and Power BI
+
+- drag and drop GUI interface (not coding!)
+- easier to implement but less possible customization
+
 
 ::: footer
-New! [Shiny for python](https://shiny.rstudio.com/py/)
+
+[Power BI vs Shiny - Appsilon blog](https://appsilon.com/powerbi-vs-r-shiny/)
 :::
+
+---
+
+## Comparison
+
+![](img/dashboard-comparison.png)
+
+::: footer
+[Streamlit vs. Dash vs. Shiny vs. Voila vs. Flask vs. Jupyter - by Markus Schmitt](https://www.datarevenue.com/en-blog/data-dashboarding-streamlit-vs-dash-vs-shiny-vs-voila)
+:::
+
 
 ---
 
@@ -122,28 +157,78 @@ Business Dashboards
 Business Dashboards
 :::
 
+
 ---
 
-## Running a dashboard
+## What will we learn in DSCI 532?
 
-- Running a dashboard is different from running code!
+
+- **[R]** Shiny  
+- **[Python]** Dash
+
+::: footer
+New! [Shiny for python](https://shiny.rstudio.com/py/)
+:::
+
+
+---
+
+## Why Shiny?
+
+**Mature web app framework**
+- Special packages for testing the app are available (`Shinytest2`)
+- Extensive documentation (including books)
+- New! Shiny for python (It is still not ready for production apps)
+
+---
+
+## Why Dash?
+
+- It is a stable and well documented solution for Python apps.
+- It is more similar to Shiny than other technologies.
+
+
+::: footer
+[Data-Science Reactivity: Three Ways](https://ijlyttle.github.io/reactivity-three-ways-quarto/)
+:::
+
+---
+
+# Let's go! 🏁
+Shiny
+
+---
+
+## What is a Shiny app?
+
+A Shiny app is a web page (UI) connected to a computer running a live R session (Server)
+
+![](img/basic-shiny.png)
 
 ---
 
 
 # DEMO: Running a dashboard vs running code {background-color="#FED9B7"}
 
+![](img/run_app.png)
 
 ---
+
+# Questions? Break!
+
+
+---
+
 
 # Which are the main components of a Shiny App?
 
-- User interface (frontend)
-- Server (backend)
+1. User interface (frontend)
+2. Server (backend)
+3. `shinyApp()`
 
 ---
 
-## `app.R`
+## `app.R` 📄
 
 ```r
 library(shiny)
@@ -158,6 +243,21 @@ shinyApp(ui, server)
 
 ---
 
+# Which are the main components of a Shiny App?
+
+**1. User interface (frontend)**
+Nested R functions that assemble an HTML user interface for your app
+
+**2. Server (backend)**
+A function with instructions on how to build and rebuild the R objects displayed in the UI
+
+**3. `shinyApp()`**
+combines ui and server into a functioning app. Wrap with `runApp()` if calling from a sourced script or inside a function
+
+
+
+---
+
 ## Shiny App cheat-sheet
 
 ![](img/shiny.png)
@@ -165,6 +265,7 @@ shinyApp(ui, server)
 :::footer
 [Shiny cheatsheet](https://shiny.rstudio.com/images/shiny-cheatsheet.pdf)
 :::
+
 
 ---
 
@@ -215,7 +316,12 @@ Source: [Mastering Shiny](https://mastering-shiny.org/reactive-motivation.html#m
 
 ---
 
-## Interactivy
+# Is the same to say reactive than interactive?
+No...
+
+---
+
+## Interactive
 
 * It is **not required connection to a server**
 
@@ -234,7 +340,7 @@ Source: [Mastering Shiny](https://mastering-shiny.org/reactive-motivation.html#m
 
 * We have to 🔌 **connect** the user interface to the server.
 
-* For that, we need to use a specialized dashboard library (for example, `Shiny` or Dash`)
+* For that, we need to use a specialized dashboard library (for example, `Shiny` or `Dash`)
 
 
 ---
@@ -243,25 +349,95 @@ Source: [Mastering Shiny](https://mastering-shiny.org/reactive-motivation.html#m
 
 "users change **input controls** (dragging sliders, typing in textboxes, checking checkboxes, …) which causes logic to run **on the server** (reading CSVs, subsetting data, fitting models, …)" 
 
-```{r,echo = FALSE, fig.align='center'}
-knitr::include_graphics("img/reactivity-1.png")
-```
+![](img/basic-input-shiny.png){width=300 fig-align="center"}
 
 ---
 
 
 ..."ultimately resulting in **outputs updating** (plots redrawing, tables updating, …)."
 
-```{r,echo = FALSE, fig.align='center'}
-knitr::include_graphics("img/reactivity-2.png")
-```
+![](img/basic-output-shiny.png){width=300 fig-align="center"}
 
 
 ::: footer
 Source: [Mastering Shiny](https://mastering-shiny.org/)
 :::
 
+---
 
+## What do we need to create a reactive app?
+
+- Input functions
+- Output functions (x2)
+
+All these functions are part of Shiny
+---
+
+## Input functions (also called widgets)
+Collects values from the user
+
+![](img/inputs.png)
+---
+
+## Outputs
+`render*()` and `*Output()` functions work together to add R output to the UI
+
+![](img/outputs.png)
+
+---
+
+## Reactivity
+
+![](img/react-1.png)
+---
+
+## 🔌
+
+![](img/basic-shiny.png){width=300 fig-align="center"}
+---
+
+## User selection to server/backend 🔌
+
+![](img/basic-input-shiny.png){width=300 fig-align="center"}
+---
+
+## Reactivity
+
+![](img/react-2.png){fig-align="center"}
+---
+
+## Reactivity
+
+![](img/react-3.png)
+---
+
+
+## Output to web app/dashboard 🔌
+
+![](img/basic-output-shiny.png){width=300 fig-align="center"}
+
+
+---
+
+## Reactivity
+
+![](img/react-4.png){fig-align="center"}
+---
+
+## Reactivity
+
+![](img/react-5.png){fig-align="center"}
+---
+
+## A rective Shiny App 🔌
+
+![](img/basic-shiny-connected.png){width=300 fig-align="center"}
+
+---
+
+## Can you recognize those elements in the code?
+
+![](img/react-6.png){fig-align="center"}
 
 ---
 
