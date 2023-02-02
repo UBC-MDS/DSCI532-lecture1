@@ -36,10 +36,10 @@ format:
 ## 🙌 **Today's goal**
 ### Create and Deploy a basic Shiny App.
 
-DEMOS:
-- Running a dashboard vs running code  
-- Building the structure of your first Shiny app    
-- Creating a reactive plot with Shiny and deploying it  
+**DEMOS:**  
+- Running a dashboard vs running code    
+- Building the structure of your first Shiny app      
+- Creating a reactive plot with Shiny and deploying it    
 
 ---
 
@@ -65,7 +65,7 @@ Mastering Shiny
 
 ---
 
-# 1. What is a **data dashboard**? {background-color="#FED9B7"}
+# 1. What is a **data dashboard**? {background-color="#F1FFFA"}
 
 
 ---
@@ -114,8 +114,10 @@ Option (a) is correct
 
 ## Tableau and Power BI
 
+![Tableau](img/tableau-1.png){width=500 fig-align="center"} 
+
 - drag and drop GUI interface (not coding!)
-- easier to implement but less possible customization
+- easier to implement but allows less customization
 
 
 ::: footer
@@ -127,7 +129,7 @@ Option (a) is correct
 
 ## Comparison
 
-![](img/dashboard-comparison.png)
+![](img/dashboard-comparison.png){fig-align="center"}
 
 ::: footer
 [Streamlit vs. Dash vs. Shiny vs. Voila vs. Flask vs. Jupyter - by Markus Schmitt](https://www.datarevenue.com/en-blog/data-dashboarding-streamlit-vs-dash-vs-shiny-vs-voila)
@@ -136,35 +138,35 @@ Option (a) is correct
 
 ---
 
-## How to select the best available technology?
-- short-term or long-term solution?
-- cost / financial aspect
-- data arquitecture - Is compatible with other technology that I am using?
+## Criteria to select the best available solution
+1. short-term or long-term solution?
+2. cost / financial aspect
+3. data arquitecture - Is compatible with other technology that I am using?
 
 ::: footer
-Business Dashboards
+Extracted from: Business Dashboards
 :::
 
 ---
 
-## Why this software / technology and not anoother one?
-- Ease of use
-- Software maturity
-- Features and flexibility
-- Hardware requirements
+## Criteria to select the best available solution
+4. Ease of use
+5. Software maturity
+6. Features and flexibility
+7. Hardware requirements
 
 ::: footer
-Business Dashboards
+Extracted from: Business Dashboards
 :::
 
 
 ---
 
 ## What will we learn in DSCI 532?
-
-
 - **[R]** Shiny  
 - **[Python]** Dash
+
+Both are open source packages
 
 ::: footer
 New! [Shiny for python](https://shiny.rstudio.com/py/)
@@ -173,29 +175,34 @@ New! [Shiny for python](https://shiny.rstudio.com/py/)
 
 ---
 
-## Why Shiny?
+## Why Shiny? ✨
 
-**Mature web app framework**
-- Special packages for testing the app are available (`Shinytest2`)
-- Extensive documentation (including books)
-- New! Shiny for python (It is still not ready for production apps)
+  
+**Mature web app framework**    
+  
+- Special packages for testing the app are available (`Shinytest2`)    
+  
+- Extensive documentation (including books 📚)     
+  
+- New! 🐍✨ Shiny for python (It is still not ready for production apps)    
 
 ---
 
-## Why Dash?
+## Why Dash? 🐍
 
 - It is a stable and well documented solution for Python apps.
 - It is more similar to Shiny than other technologies.
 
 
 ::: footer
-[Data-Science Reactivity: Three Ways](https://ijlyttle.github.io/reactivity-three-ways-quarto/)
+[Data-Science Reactivity: Three Ways - Ian Lyttle](https://ijlyttle.github.io/reactivity-three-ways-quarto/)
 :::
 
 ---
 
-# Let's go! 🏁
-Shiny
+![](img/shiny_grande.jpg)
+
+
 
 ---
 
@@ -203,28 +210,29 @@ Shiny
 
 A Shiny app is a web page (UI) connected to a computer running a live R session (Server)
 
-![](img/basic-shiny.png)
+![](img/basic-shiny.png){fig-align="center"}
 
 ---
 
 
-# DEMO: Running a dashboard vs running code {background-color="#FED9B7"}
-
-![](img/run_app.png)
-
----
-
-# Questions? Break!
-
-
----
-
-
-# Which are the main components of a Shiny App?
+## Main components of a Shiny App:
 
 1. User interface (frontend)
 2. Server (backend)
 3. `shinyApp()`
+
+---
+
+## DEMO: Running a dashboard vs running code {background-color="#F1FFFA"}
+
+![](img/run_app.png){width=100}
+
+
+
+# Questions? Break! {background-color="#05A8AA"}
+
+
+
 
 ---
 
@@ -243,13 +251,17 @@ shinyApp(ui, server)
 
 ---
 
-# Which are the main components of a Shiny App?
+## Main components of a Shiny App:
 
 **1. User interface (frontend)**
 Nested R functions that assemble an HTML user interface for your app
 
+. . . 
+
 **2. Server (backend)**
 A function with instructions on how to build and rebuild the R objects displayed in the UI
+
+. . . 
 
 **3. `shinyApp()`**
 combines ui and server into a functioning app. Wrap with `runApp()` if calling from a sourced script or inside a function
@@ -260,28 +272,33 @@ combines ui and server into a functioning app. Wrap with `runApp()` if calling f
 
 ## Shiny App cheat-sheet
 
-![](img/shiny.png)
+![](img/shiny.png){fig-align="center"}
 
 :::footer
 [Shiny cheatsheet](https://shiny.rstudio.com/images/shiny-cheatsheet.pdf)
 :::
 
 
----
 
-# DEMO: Building the structure of your first Shiny app {background-color="#FED9B7"}
+# DEMO: Building the structure of your first Shiny app {background-color="#F1FFFA"}
 
----
 
-# Break
+
+
+
+
+# What is **reactive programming** and how to implement it? {background-color="#F1FFFA"}
+
+
+
 
 ---
 
 ## Interactivity 
-In computer science, interactive refers to software which accepts and responds to input from people—for example, data or commands.
+In computer science, interactive refers to **software which accepts and responds to input from people**, for example, data or commands.
 
 
-```{r echo=FALSE, message=FALSE, warning=FALSE, out.height=300, out.width=400}
+```{r echo=FALSE, message=FALSE, warning=FALSE, out.height=400, out.width=500, fig.align='center'}
 library(palmerpenguins)
 library(plotly)
 ggpenguins <- qplot(bill_length_mm , body_mass_g, 
@@ -289,51 +306,28 @@ data = palmerpenguins::penguins, color = species)
 ggplotly(ggpenguins)
 ```
 
-
-Source: Wikipedia
-
----
-
-# What is reactivity and how to implement it? {background-color="#FED9B7"}
-
-
-
-
-
-
----
-
-## Reactivity
-> _..."users change input controls (dragging sliders, typing in textboxes, checking checkboxes, …) which causes logic to run **on the server** (reading CSVs, subsetting data, fitting models, …) ultimately resulting in outputs updating (plots redrawing, tables updating, …)."_
-
-```{r,echo = FALSE, out.width=450, fig.align='center'}
-knitr::include_graphics("img/reactivity-4.png")
-```
-
 ::: footer
-Source: [Mastering Shiny](https://mastering-shiny.org/reactive-motivation.html#motivation)]
+Source: Wikipedia
 :::
 
----
 
-# Is the same to say reactive than interactive?
-No...
 
----
-
-## Interactive
-
-* It is **not required connection to a server**
-
-* It is not needed **a widget** (for example, a slider)
-
-* Limited (what happen if we want to change the variable assigned to the the x-axis?)
-
-* This kind of interactivity is provided by the plotting library (for example, `Altair`)
+# Is the same to say reactive than interactive? 
+No necessarily...
 
 ---
 
-## Reactivity
+## Interactive plots
+For example, an Altair plot
+
+* It is **not required that we code a connection to a server**, this kind of interactivity is provided by the plotting library 
+
+* It is not always needed **a widget** (for example, a slider)
+
+
+---
+
+## Reactive programming
 
 
 * We need to add **widgets** to allow the user interact with the app and send a message to the server
@@ -345,18 +339,21 @@ No...
 
 ---
 
-# Reactivity
+## Reactivity
 
 "users change **input controls** (dragging sliders, typing in textboxes, checking checkboxes, …) which causes logic to run **on the server** (reading CSVs, subsetting data, fitting models, …)" 
 
 ![](img/basic-input-shiny.png){width=300 fig-align="center"}
+::: footer
+Source: [Mastering Shiny](https://mastering-shiny.org/)
+:::
 
 ---
 
 
 ..."ultimately resulting in **outputs updating** (plots redrawing, tables updating, …)."
 
-![](img/basic-output-shiny.png){width=300 fig-align="center"}
+![](img/basic-output-shiny.png){width=200 fig-align="center"}
 
 
 ::: footer
@@ -367,22 +364,31 @@ Source: [Mastering Shiny](https://mastering-shiny.org/)
 
 ## What do we need to create a reactive app?
 
-- Input functions
+- Input functions `*Input()`
 - Output functions (x2)
-
-All these functions are part of Shiny
+   - `render*()`
+   - `*Output()`
+   
 ---
 
-## Input functions (also called widgets)
+## Input functions (~widgets)
 Collects values from the user
 
-![](img/inputs.png)
+![](img/inputs.png){fig-align="center"}
+
 ---
 
 ## Outputs
 `render*()` and `*Output()` functions work together to add R output to the UI
 
-![](img/outputs.png)
+![](img/outputs.png){fig-align="center"}
+
+::: footer
+You can check the Shiny cheat-sheet
+:::
+
+
+# Now, let's connect the UI and the Server 🔌
 
 ---
 
@@ -391,57 +397,57 @@ Collects values from the user
 ![](img/react-1.png)
 ---
 
-## 🔌
+## Reactivity 🔌
 
 ![](img/basic-shiny.png){width=300 fig-align="center"}
 ---
 
-## User selection to server/backend 🔌
+## Reactivity: User selection to server 🔌
 
 ![](img/basic-input-shiny.png){width=300 fig-align="center"}
 ---
 
-## Reactivity
+## Reactivity: User selection to server 🔌
 
 ![](img/react-2.png){fig-align="center"}
 ---
 
-## Reactivity
+## Reactivity: User selection to server 🔌
 
-![](img/react-3.png)
+![](img/react-3.png){fig-align="center"}
 ---
 
 
-## Output to web app/dashboard 🔌
+## Reactivity: output to UI 🔌
 
 ![](img/basic-output-shiny.png){width=300 fig-align="center"}
 
 
 ---
 
-## Reactivity
+## Reactivity: output to UI 🔌
 
 ![](img/react-4.png){fig-align="center"}
 ---
 
-## Reactivity
+## Reactivity: output to UI 🔌
 
 ![](img/react-5.png){fig-align="center"}
 ---
 
-## A rective Shiny App 🔌
+## Reactivity: output to UI 🔌
 
 ![](img/basic-shiny-connected.png){width=300 fig-align="center"}
 
 ---
 
-## Can you recognize those elements in the code?
+## Can you recognize the 🔌 in other app?
 
 ![](img/react-6.png){fig-align="center"}
 
 ---
 
-# DEMO: Creating a reactive plot with Shiny {background-color="#FED9B7"}
+# DEMO: Creating a reactive plot with Shiny {background-color="#F1FFFA"}
 
 
 ---
@@ -484,4 +490,14 @@ https://www.geckoboard.com/best-practice/dashboard-design/
 
 
 This is other interesting [post](https://www.geckoboard.com/blog/are-dashboards-really-dead/)
+
+---
+
+---
+
+## `reactlog` package
+
+1 - Add the function `reactlog_enable()`
+2 - Once app has closed, display reactlog from shiny
+`shiny::reactlogShow()`
 
