@@ -1,5 +1,5 @@
 ---
-title: "Introduction"
+title: "L1 - Your first Shiny app"
 institute: "Data Visualization II - DSCI 532 - MDS 2022/23"
 format:
   revealjs:
@@ -14,21 +14,14 @@ format:
     multiplex: true
 ---
 
-## DSCI 532 Overview    
-
-![](img/532.png)
----
-
 ## Lecture 1 
   
 
-1. What is a **data dashboard**?  
-
+1. What is a **data dashboard**?    
   
-2. Which are the main **components of a Shiny App**?  
-
+2. **What is a Shiny App** and how can we build one?  
   
-3. What is **reactivity** and how to implement it?
+3. What is **reactive programming**?
 
 
 ---
@@ -36,34 +29,13 @@ format:
 ## 🙌 **Today's goal**
 ### Create and Deploy a basic Shiny App.
 
-**DEMOS:**  
-- Running a dashboard vs running code    
-- Building the structure of your first Shiny app      
-- Creating a reactive plot with Shiny and deploying it    
-
----
-
-## Lecture 1 Overview
-
-1. What is a **data dashboard**?  
-DEMO - Running a dashboard vs running code  
   
-2. Which are the main **components of a Shiny App**?  
-DEMO - Building the structure of your first Shiny app   
+This class is based in the book Mastering Shiny:
   
-3. What is **reactivity** and how to implement it?
-DEMO - Creating a reactive plot with Shiny and deploying it  
-
----
-
-## Material
+- 📚 Chapter 1 - [Your first Shiny app](https://mastering-shiny.org/basic-app.html) 
   
-
-      
-- 📚 Chapter 1 - [Your first Shiny app](https://mastering-shiny.org/basic-app.html) -  
-Mastering Shiny 
-
----
+- 📚 Chapter 3, section 2: [Basic reactivity - The server function](https://mastering-shiny.org/basic-reactivity.html#the-server-function) 
+  
 
 # 1. What is a **data dashboard**? {background-color="#F1FFFA"}
 
@@ -72,76 +44,123 @@ Mastering Shiny
 
 ## Which one is a dashboard?
 
-::: {#fig-elephants layout-ncol=2 fig-align='center'}
+::: {#fig-dashboards layout-ncol=2 fig-align='center'}
 
-![](img/dashboard1.png){#fig-surus}
+![](img/dashboard1.png){#fig-A width=500}
 
-![](img/dashboard2.png){#fig-hanno}
+![](img/dashboard2.png){#fig-B width=500}
 
-Which one is a Dashboard?
+Are both dashboards?
 :::
 
 :::footer
-[Dahsboard 1](https://experience.arcgis.com/experience/a6f23959a8b14bfa989e3cda29297ded) - [Dahsboard 2](https://experience.arcgis.com/experience/a6f23959a8b14bfa989e3cda29297ded)
+[Dahsboard 1](https://experience.arcgis.com/experience/a6f23959a8b14bfa989e3cda29297ded) - [Dashboard 2](https://www.structube.com/en_ca/lighting/floor-lamps?page=1&sort-by=position-asc&price%5Bfilter%5D=175-385%2C175_385)
 :::
 
----
-
-## Answer
-
-Option (a) is correct
-- Dashboards use to have widgets that allow the user interact with the interface, what made them similar to web apps. 
-- Dashboards are specifically designed to display and monitor data.
 
 ---
 
 ## What is a data dashboard?
 
-> An **information management tool** that visually tracks, analyzes, and displays key performance indicators, metrics, as well as key data points, allowing you to monitor the current state of your business, department, team, or specific process.
+"An **information management tool** that visually tracks, analyzes, and displays key performance indicators, metrics, as well as key data points, allowing you to monitor the current state of your business, department, team, or specific process"  
+ 
+![](img/example.png){fig-align="center"}
 
 
 ::: footer
-[One source: Databox](https://databox.com/what-is-a-dashboard#what)]
+[Source: Databox](https://databox.com/what-is-a-dashboard#what) - [Example dashboard AdminLTE 3](https://adminlte.io/themes/v3/)
+:::
+
+
+
+
+# A dashboard shows a comprehensive overview of data from different sources. 
+
+
+---
+
+## Are dashboards data visualizations?
+
+- **Data visualization** is a way of presenting data in a visual form to make it easier to understand and analyze.
+
+```{r ggplot, fig.align='center', out.width=400}
+library(ggplot2)
+
+set.seed(1)
+df <- data.frame(
+  gp = factor(rep(letters[1:3], each = 10)),
+  y = rnorm(30)
+)
+
+ds <- do.call(rbind, lapply(split(df, df$gp), function(d) {
+  data.frame(mean = mean(d$y), sd = sd(d$y), gp = d$gp)
+}))
+
+
+ggplot() +
+  geom_point(data = df, aes(gp, y)) +
+  geom_point(data = ds, aes(gp, mean), colour = 'red', size = 3) +
+  geom_errorbar(
+    data = ds,
+    aes(gp, mean, ymin = mean - sd, ymax = mean + sd),
+    colour = 'red',
+    width = 0.4
+  )
+
+```
+
+
+
+::: footer
+[Extracted from Tableau](https://www.tableau.com/learn/articles/dashboards/what-is) 
+:::
+
+---
+
+## Are dashboards data visualizations?
+
+- **Data dashboards are a summary of different, but related data sets, presented in a way that makes the information easier to understand**. 
+- Dashboards are a type of data visualization, and often use common visualization tools such as graphs, charts, and tables. 
+
+![](img/example.png){fig-align='center'}
+
+::: footer
+[Extracted from Tableau](https://www.tableau.com/learn/articles/dashboards/what-is) 
+:::
+
+---
+
+## Dashboards...
+
+- ... take data from different sources and aggregate it so **non-technical people can more easily read and interpret it**.
+
+- ... uses **interactive elements** to help exploring and understand certain points, explore areas of interest, and help taking **data-driven decisions**.
+
+```{r, out.width=200}
+library(shiny)
+
+sliderInput("obs", "Number of observations:",
+    min = 0, max = 1000, value = 500
+  )
+```
+
+
+::: footer
+[Extracted from Tableau](https://www.tableau.com/learn/articles/dashboards/what-is) 
 :::
 
 ---
 
 ## Packages / technologies used to create Dashboads
 
-
 ![](img/tech.png)
----
-
-## Tableau and Power BI
-
-![Tableau](img/tableau-1.png){width=500 fig-align="center"} 
-
-- drag and drop GUI interface (not coding!)
-- easier to implement but allows less customization
-
-
-::: footer
-
-[Power BI vs Shiny - Appsilon blog](https://appsilon.com/powerbi-vs-r-shiny/)
-:::
 
 ---
 
-## Comparison
-
-![](img/dashboard-comparison.png){fig-align="center"}
-
-::: footer
-[Streamlit vs. Dash vs. Shiny vs. Voila vs. Flask vs. Jupyter - by Markus Schmitt](https://www.datarevenue.com/en-blog/data-dashboarding-streamlit-vs-dash-vs-shiny-vs-voila)
-:::
-
-
----
-
-## Criteria to select the best available solution
-1. short-term or long-term solution?
-2. cost / financial aspect
-3. data arquitecture - Is compatible with other technology that I am using?
+## Criteria to select the best available technology
+1. cost / financial aspect
+2. data architecture - Is compatible with other technology that I am using?
+3. Ease of use
 
 ::: footer
 Extracted from: Business Dashboards
@@ -149,11 +168,10 @@ Extracted from: Business Dashboards
 
 ---
 
-## Criteria to select the best available solution
-4. Ease of use
-5. Software maturity
-6. Features and flexibility
-7. Hardware requirements
+## Criteria to select the best available technology
+4. Software maturity
+5. Features and flexibility
+6. Hardware requirements
 
 ::: footer
 Extracted from: Business Dashboards
@@ -163,10 +181,12 @@ Extracted from: Business Dashboards
 ---
 
 ## What will we learn in DSCI 532?
+
 - **[R]** Shiny  
 - **[Python]** Dash
 
-Both are open source packages
+Both are open source packages  
+
 
 ::: footer
 New! [Shiny for python](https://shiny.rstudio.com/py/)
@@ -178,13 +198,27 @@ New! [Shiny for python](https://shiny.rstudio.com/py/)
 ## Why Shiny? ✨
 
   
-**Mature web app framework**    
+- **Mature web app framework** Special packages for testing the app (`Shinytest2`)    
   
-- Special packages for testing the app are available (`Shinytest2`)    
+- Extensive **documentation** (books 📚)  
+
+- It has a learning curve but allows **more customization** than other technologies (i.e. Tableau)
   
-- Extensive documentation (including books 📚)     
-  
-- New! 🐍✨ Shiny for python (It is still not ready for production apps)    
+- New! 🐍✨ Shiny for python (It is not ready for production apps)    
+
+:::{.fragment .highlight-red}
+- Requested by Capstone partners
+:::
+
+---
+
+## Streamlit vs. Dash vs. Shiny ...
+
+![](img/dashboard-comparison.png){fig-align="center"}
+
+::: footer
+[Streamlit vs. Dash vs. Shiny vs. Voila vs. Flask vs. Jupyter - by Markus Schmitt](https://www.datarevenue.com/en-blog/data-dashboarding-streamlit-vs-dash-vs-shiny-vs-voila)
+:::
 
 ---
 
@@ -200,8 +234,65 @@ New! [Shiny for python](https://shiny.rstudio.com/py/)
 
 ---
 
+## Tableau and Power BI
+
+![](img/tableau-1.png){width=500 fig-align="center"} 
+
+- **Drag and drop** GUI interface (not coding!)
+- Easier to implement but allows **less customization**
+- **$**
+
+
+::: footer
+[Power BI vs Shiny - Appsilon blog](https://appsilon.com/powerbi-vs-r-shiny/)
+:::
+
+---
+
+### Extra material: 
+- [MDS Tableau Tutorial](https://hfboyce.github.io/tableau_course/intro.html)
+
+- Comparison among technologies: blogposts
+    - [Dash vs Shiny - Appsilon](https://appsilon.com/dash-vs-shiny/)
+    - [Tableau vs Shiny](https://appsilon.com/tableau-vs-r-shiny/)
+    - [Streamlit vs Dash vs Shiny Voila](https://www.datarevenue.com/en-blog/data-dashboarding-streamlit-vs-dash-vs-shiny-vs-voila)
+
+---
+
+
+## DSCI 532 Overview    
+#### Group-based project course 
+  
+- **Main project** Create a Shiny app
+    - 4 Milestones + team work contract + team work reflection  
+
+- **Vocabulary** Warm-up activity!
+      
+- **Individual Assignment**: Dash Python app
+
+---
+
+## DSCI 532 Overview    
+
+![](img/532-overview-2023.png){fig-align="center" width=300}
+
+
+
+# Questions?
+
+---
+
 ![](img/shiny_grande.jpg)
 
+# 2. What is a Shiny App and how can we build one?  {background-color="#F1FFFA"}
+
+
+---
+
+## Before starting
+
+
+ 
 
 
 ---
@@ -210,10 +301,9 @@ New! [Shiny for python](https://shiny.rstudio.com/py/)
 
 A Shiny app is a web page (UI) connected to a computer running a live R session (Server)
 
-![](img/basic-shiny.png){fig-align="center"}
+![](img/basic-shiny.png){.r-stretch fig-align='center'}
 
 ---
-
 
 ## Main components of a Shiny App:
 
@@ -223,9 +313,23 @@ A Shiny app is a web page (UI) connected to a computer running a live R session 
 
 ---
 
-## DEMO: Running a dashboard vs running code {background-color="#F1FFFA"}
+## Shiny App cheat-sheet
 
-![](img/run_app.png){width=100}
+![](img/shiny.png){.r-size fig-align="center"}
+
+:::footer
+[Shiny cheatsheet](https://shiny.rstudio.com/images/shiny-cheatsheet.pdf)
+:::
+
+---
+
+  
+# DEMO: Building the structure of your first Shiny app {background-color="#F1FFFA"}
+  
+ 
+
+
+
 
 
 
@@ -268,26 +372,10 @@ combines ui and server into a functioning app. Wrap with `runApp()` if calling f
 
 
 
----
-
-## Shiny App cheat-sheet
-
-![](img/shiny.png){fig-align="center"}
-
-:::footer
-[Shiny cheatsheet](https://shiny.rstudio.com/images/shiny-cheatsheet.pdf)
-:::
 
 
 
-# DEMO: Building the structure of your first Shiny app {background-color="#F1FFFA"}
-
-
-
-
-
-
-# What is **reactive programming** and how to implement it? {background-color="#F1FFFA"}
+# 3. What is **reactive programming**? {background-color="#F1FFFA"}
 
 
 
@@ -344,7 +432,8 @@ For example, an Altair plot
 "users change **input controls** (dragging sliders, typing in textboxes, checking checkboxes, …) which causes logic to run **on the server** (reading CSVs, subsetting data, fitting models, …)" 
 
 ![](img/basic-input-shiny.png){width=300 fig-align="center"}
-::: footer
+
+:::footer
 Source: [Mastering Shiny](https://mastering-shiny.org/)
 :::
 
@@ -353,7 +442,8 @@ Source: [Mastering Shiny](https://mastering-shiny.org/)
 
 ..."ultimately resulting in **outputs updating** (plots redrawing, tables updating, …)."
 
-![](img/basic-output-shiny.png){width=200 fig-align="center"}
+
+![](img/basic-output-shiny.png){width=300 fig-align="center"}
 
 
 ::: footer
@@ -362,9 +452,10 @@ Source: [Mastering Shiny](https://mastering-shiny.org/)
 
 ---
 
-## What do we need to create a reactive app?
+## Functions needed for reactivity
 
-- Input functions `*Input()`
+- Input functions 
+   - `*Input()`
 - Output functions (x2)
    - `render*()`
    - `*Output()`
@@ -374,14 +465,16 @@ Source: [Mastering Shiny](https://mastering-shiny.org/)
 ## Input functions (~widgets)
 Collects values from the user
 
-![](img/inputs.png){fig-align="center"}
-
+![](img/inputs.png){.r-stretch fig-align="center"}
+:::footer
+[Active Widgets](https://shiny.rstudio.com/tutorial/written-tutorial/lesson3/)
+:::
 ---
 
 ## Outputs
 `render*()` and `*Output()` functions work together to add R output to the UI
 
-![](img/outputs.png){fig-align="center"}
+![](img/outputs.png){width=400 fig-align="center"}
 
 ::: footer
 You can check the Shiny cheat-sheet
@@ -392,29 +485,37 @@ You can check the Shiny cheat-sheet
 
 ---
 
-## Reactivity
+## User interface (UI)
 
-![](img/react-1.png)
----
+![](img/react-1.png){.r-stretch}
 
-## Reactivity 🔌
 
-![](img/basic-shiny.png){width=300 fig-align="center"}
+
+# DEMO: Creating a reactive plot with Shiny {background-color="#F1FFFA"}
+
+
 ---
 
 ## Reactivity: User selection to server 🔌
 
 ![](img/basic-input-shiny.png){width=300 fig-align="center"}
+
+---
+
+## Reactivity 🔌
+
+![](img/basic-shiny.png){width=300 fig-align="center"}
+
 ---
 
 ## Reactivity: User selection to server 🔌
 
-![](img/react-2.png){fig-align="center"}
+![](img/react-2.png){.r-stretch fig-align="center"}
 ---
 
 ## Reactivity: User selection to server 🔌
 
-![](img/react-3.png){fig-align="center"}
+![](img/react-3.png){.r-stretch fig-align="center"}
 ---
 
 
@@ -427,12 +528,12 @@ You can check the Shiny cheat-sheet
 
 ## Reactivity: output to UI 🔌
 
-![](img/react-4.png){fig-align="center"}
+![](img/react-4.png){.r-stretch fig-align="center"}
 ---
 
 ## Reactivity: output to UI 🔌
 
-![](img/react-5.png){fig-align="center"}
+![](img/react-5.png){width=300 fig-align="center"}
 ---
 
 ## Reactivity: output to UI 🔌
@@ -447,14 +548,20 @@ You can check the Shiny cheat-sheet
 
 ---
 
-# DEMO: Creating a reactive plot with Shiny {background-color="#F1FFFA"}
+## Deployment with `shinyapps.io`
+
+- Create an account
+- You have until 5 apps for free.
+
+
+> We are going to learn other deployment methods in lecture 7
 
 
 ---
 
 ## The app has a 🐛. Can you help me to fix it?
 
-![](img/exercise1.png)
+![](img/exercise1.png){.r-stretch}
 
 ---
 
@@ -471,12 +578,12 @@ You can check the Shiny cheat-sheet
 
 4. Implement the **reactivity** connecting the server and the user interface using specific functions.
 
-5. Create and run a basic Shiny R app.
+5. Create and deploy a basic Shiny R app.
 
 
----
 
-# Questions?
+
+# Questions?  {background-color="#05A8AA"}
 
 
 ---
@@ -490,8 +597,6 @@ https://www.geckoboard.com/best-practice/dashboard-design/
 
 
 This is other interesting [post](https://www.geckoboard.com/blog/are-dashboards-really-dead/)
-
----
 
 ---
 
