@@ -441,7 +441,8 @@ Source: [Mastering Shiny](https://mastering-shiny.org/)
 ## Input functions (~widgets)
 Collects values from the user
 
-![](img/inputs.png){width=500 fig-align="center"}
+![](img/inputs.png){width=700 fig-align="center"}
+
 :::footer
 [Active Widgets](https://shiny.rstudio.com/tutorial/written-tutorial/lesson3/)
 :::
