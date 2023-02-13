@@ -1,5 +1,5 @@
 ---
-title: "L1 - Your first Shiny app"
+title: "L1 - Intro to DSCI 532 + Your first Shiny app"
 institute: "Data Visualization II - DSCI 532 - MDS 2022/23"
 format:
   revealjs:
@@ -36,6 +36,8 @@ This class is based in the book Mastering Shiny:
   
 - 📚 Chapter 3, section 2: [Basic reactivity - The server function](https://mastering-shiny.org/basic-reactivity.html#the-server-function) 
   
+  
+This information is also available in the [L1 Lecture notes](https://pages.github.ubc.ca/MDS-2022-23/DSCI_532_viz-2_students/materials/lectures/1-intro-to-dashboards.html)  
 
 # 1. What is a **data dashboard**? {background-color="#F1FFFA"}
 
@@ -70,11 +72,6 @@ Are both dashboards?
 ::: footer
 [Source: Databox](https://databox.com/what-is-a-dashboard#what) - [Example dashboard AdminLTE 3](https://adminlte.io/themes/v3/)
 :::
-
-
-
-
-# A dashboard shows a comprehensive overview of data from different sources. 
 
 
 ---
@@ -119,8 +116,8 @@ ggplot() +
 
 ## Are dashboards data visualizations?
 
-- **Data dashboards are a summary of different, but related data sets, presented in a way that makes the information easier to understand**. 
-- Dashboards are a type of data visualization, and often use common visualization tools such as graphs, charts, and tables. 
+- **Data dashboards are a summary one or more datasets, presented in a way that makes the information easier to understand**. 
+- Dashboards are a type of data visualization, and often use common visualization tools such as graphs, charts, and maps. 
 
 ![](img/example.png){fig-align='center'}
 
@@ -132,17 +129,11 @@ ggplot() +
 
 ## Dashboards...
 
-- ... take data from different sources and aggregate it so **non-technical people can more easily read and interpret it**.
+- ... make results easier to understand to **non-technical people can more easily read and interpret it**.
 
 - ... uses **interactive elements** to help exploring and understand certain points, explore areas of interest, and help taking **data-driven decisions**.
 
-```{r, out.width=200}
-library(shiny)
 
-sliderInput("obs", "Number of observations:",
-    min = 0, max = 1000, value = 500
-  )
-```
 
 
 ::: footer
@@ -234,7 +225,7 @@ New! [Shiny for python](https://shiny.rstudio.com/py/)
 
 ---
 
-## Tableau and Power BI
+## What about Tableau and Power BI?
 
 ![](img/tableau-1.png){width=500 fig-align="center"} 
 
@@ -254,7 +245,7 @@ New! [Shiny for python](https://shiny.rstudio.com/py/)
 
 - Comparison among technologies: blogposts
     - [Dash vs Shiny - Appsilon](https://appsilon.com/dash-vs-shiny/)
-    - [Tableau vs Shiny](https://appsilon.com/tableau-vs-r-shiny/)
+    - [Tableau vs Shiny- Appsilon](https://appsilon.com/tableau-vs-r-shiny/)
     - [Streamlit vs Dash vs Shiny Voila](https://www.datarevenue.com/en-blog/data-dashboarding-streamlit-vs-dash-vs-shiny-vs-voila)
 
 ---
@@ -287,13 +278,6 @@ New! [Shiny for python](https://shiny.rstudio.com/py/)
 # 2. What is a Shiny App and how can we build one?  {background-color="#F1FFFA"}
 
 
----
-
-## Before starting
-
-
- 
-
 
 ---
 
@@ -311,20 +295,11 @@ A Shiny app is a web page (UI) connected to a computer running a live R session 
 2. Server (backend)
 3. `shinyApp()`
 
----
-
-## Shiny App cheat-sheet
-
-![](img/shiny.png){.r-size fig-align="center"}
-
-:::footer
-[Shiny cheatsheet](https://shiny.rstudio.com/images/shiny-cheatsheet.pdf)
-:::
 
 ---
 
   
-# DEMO: Building the structure of your first Shiny app {background-color="#F1FFFA"}
+# DEMO: Basic structure of a Shiny app {background-color="#F1FFFA"}
   
  
 
@@ -363,12 +338,12 @@ Nested R functions that assemble an HTML user interface for your app
 . . . 
 
 **2. Server (backend)**
-A function with instructions on how to build and rebuild the R objects displayed in the UI
+a function with instructions on how to build and rebuild the R objects displayed in the UI
 
 . . . 
 
 **3. `shinyApp()`**
-combines ui and server into a functioning app. Wrap with `runApp()` if calling from a sourced script or inside a function
+combines ui and server into a functioning app.
 
 
 
@@ -412,6 +387,7 @@ For example, an Altair plot
 
 * It is not always needed **a widget** (for example, a slider)
 
+<input type="range" min="1" max="100" value="50" class="slider" id="myRange">
 
 ---
 
@@ -465,7 +441,7 @@ Source: [Mastering Shiny](https://mastering-shiny.org/)
 ## Input functions (~widgets)
 Collects values from the user
 
-![](img/inputs.png){.r-stretch fig-align="center"}
+![](img/inputs.png){width=500 fig-align="center"}
 :::footer
 [Active Widgets](https://shiny.rstudio.com/tutorial/written-tutorial/lesson3/)
 :::
@@ -480,6 +456,16 @@ Collects values from the user
 You can check the Shiny cheat-sheet
 :::
 
+
+---
+
+## Shiny App cheat-sheet
+
+![](img/shiny.png){.r-size fig-align="center"}
+
+:::footer
+[Shiny cheatsheet](https://shiny.rstudio.com/images/shiny-cheatsheet.pdf)
+:::
 
 # Now, let's connect the UI and the Server 🔌
 
@@ -496,47 +482,50 @@ You can check the Shiny cheat-sheet
 
 ---
 
-## Reactivity: User selection to server 🔌
-
-![](img/basic-input-shiny.png){width=300 fig-align="center"}
-
----
-
 ## Reactivity 🔌
 
 ![](img/basic-shiny.png){width=300 fig-align="center"}
 
+- User selection -> server
+- Output -> UI
 ---
 
-## Reactivity: User selection to server 🔌
+## Reactivity: User selection -> server 🔌
+
+![](img/basic-input-shiny.png){width=300 fig-align="center"}
+
+
+---
+
+## Reactivity: User selection -> server 🔌
 
 ![](img/react-2.png){.r-stretch fig-align="center"}
 ---
 
-## Reactivity: User selection to server 🔌
+## Reactivity: User selection -> server 🔌
 
 ![](img/react-3.png){.r-stretch fig-align="center"}
 ---
 
 
-## Reactivity: output to UI 🔌
+## Reactivity: Output -> UI 🔌
 
 ![](img/basic-output-shiny.png){width=300 fig-align="center"}
 
 
 ---
 
-## Reactivity: output to UI 🔌
+## Reactivity: Output -> UI 🔌
 
 ![](img/react-4.png){.r-stretch fig-align="center"}
 ---
 
-## Reactivity: output to UI 🔌
+## Reactivity: Output -> UI 🔌
 
 ![](img/react-5.png){width=300 fig-align="center"}
 ---
 
-## Reactivity: output to UI 🔌
+## Reactivity: Output -> UI 🔌
 
 ![](img/basic-shiny-connected.png){width=300 fig-align="center"}
 
@@ -554,7 +543,7 @@ You can check the Shiny cheat-sheet
 - You have until 5 apps for free.
 
 
-> We are going to learn other deployment methods in lecture 7
+**We are going to learn other deployment methods in lecture 7**
 
 
 ---
@@ -569,16 +558,13 @@ You can check the Shiny cheat-sheet
 
 ## Learning objectives {background-color="#FED9B7"}
 
+1. Define what is a data dashboard.
 
-1. Define what is a dashboard.
+2. Identify the **server** and the **user interface** as dashboard core elements.
 
-2. Differentiate reactivity and interactivity.
+3. Implement **reactive programming** in a Shiny app. 
 
-3. Identify the **server** and the **user interface** as the core elements that compose a dashboard.
-
-4. Implement the **reactivity** connecting the server and the user interface using specific functions.
-
-5. Create and deploy a basic Shiny R app.
+4. Create and deploy a basic Shiny R app.
 
 
 
@@ -588,21 +574,4 @@ You can check the Shiny cheat-sheet
 
 ---
 
-
-## Activity
-
-Read this blogpost and comment with your teammates if there is something you can improve from yours.
-https://www.geckoboard.com/best-practice/dashboard-design/
-
-
-
-This is other interesting [post](https://www.geckoboard.com/blog/are-dashboards-really-dead/)
-
----
-
-## `reactlog` package
-
-1 - Add the function `reactlog_enable()`
-2 - Once app has closed, display reactlog from shiny
-`shiny::reactlogShow()`
 

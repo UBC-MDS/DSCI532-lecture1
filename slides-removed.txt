@@ -1,0 +1,17 @@
+## Activity
+
+Read this blogpost and comment with your teammates if there is something you can improve from yours.
+https://www.geckoboard.com/best-practice/dashboard-design/
+
+
+
+This is other interesting [post](https://www.geckoboard.com/blog/are-dashboards-really-dead/)
+
+---
+
+## `reactlog` package
+
+1 - Add the function `reactlog_enable()`
+2 - Once app has closed, display reactlog from shiny
+`shiny::reactlogShow()`
+
